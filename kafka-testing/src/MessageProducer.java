@@ -42,7 +42,9 @@ public class MessageProducer
 		 props.put("key.serializer", StringSerializer.class.getName());
 		 props.put("value.serializer", StringSerializer.class.getName());
 
+		 System.out.println( "connecting" );
 		 producer = new KafkaProducer<>(props);
+		 System.out.println( "done");
 	}
 	
 	public void produceMessage( 
