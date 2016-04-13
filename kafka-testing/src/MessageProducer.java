@@ -25,9 +25,11 @@ public class MessageProducer
 		
 		for( int i=0; i < nmsg; i++ )
 		{
-			message += " -- #" + i;
-			producer.produceMessage(message, topic );
+			producer.produceMessage(message + " -- #" + i, topic );
 		}
+		
+		System.exit(0);
+		
 	}
 	
 	public MessageProducer( String hostPort )
@@ -52,7 +54,7 @@ public class MessageProducer
 			String topic )
 	{
 		 producer.send(new ProducerRecord<String, String>( topic, message ) );
-		     
+
 		 System.out.println( "sent message: " + message );
 	}
 	
