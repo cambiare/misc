@@ -6,6 +6,24 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class MessageProducer 
 {
+	public static void main( String args[] )
+	{
+		String 	hostPort	= args[0];
+		String 	topic		= args[1];	
+		int		nmsg		= Integer.parseInt( args[2] );
+		String	message		= args[3];
+		
+		MessageProducer producer = new MessageProducer();
+		
+		for( int i=0; i < nmsg; i++ )
+		{
+			message += " -- #" + i;
+			producer.produceMessage(message, topic, hostPort);
+		}
+		
+	}
+	
+	
 	public void produceMessage( 
 			String message,
 			String topic,

@@ -1,4 +1,6 @@
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.CommitFailedException;
@@ -11,9 +13,20 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class MessageConsumer 
 {
+	public static void main( String args[] )
+	{
+		String	topic		= args[0];
+		String	groupId		= args[1];
+		String	hostPort	= args[2];
+		
+		MessageConsumer consumer = new MessageConsumer();
+		consumer.consumeMessages( groupId, hostPort, Arrays.asList( topic ) );
+	}
+	
 	public void consumeMessages(
 			String groupId,
-			String hostPort )
+			String hostPort,
+			List<String> topics )
 	{
 		KafkaConsumer<String, String>	consumer = null;
 		
@@ -26,14 +39,17 @@ public class MessageConsumer
 		
 		try {
 		
-			consumer = new KafkaConsumer<>(props);
-		
+			consumer = new KafkaConsumer<String, String>(props);
+			consumer.subscribe( topics );
+			
 			while( true )
 			{
 				ConsumerRecords<String, String> records = consumer.poll( 1000 );
 				for( ConsumerRecord<String, String> record : records )
 				{
-					record.value();
+					System.out.println( record.partition() + " : " + 
+									    record.offset() + " : " + 
+									    record.value() );
 					
 					if( !commit( consumer, record ) )
 					{
