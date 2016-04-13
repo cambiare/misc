@@ -2,11 +2,12 @@ import java.util.Properties;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 public class MessageProducer 
 {
+	private KafkaProducer<String, String> producer;
+	
 	public static void main( String args[] )
 	{
 		if( args.length != 4 )
@@ -20,23 +21,18 @@ public class MessageProducer
 		int		nmsg		= Integer.parseInt( args[2] );
 		String	message		= args[3];
 		
-		MessageProducer producer = new MessageProducer();
+		MessageProducer producer = new MessageProducer( hostPort );
 		
 		for( int i=0; i < nmsg; i++ )
 		{
 			message += " -- #" + i;
-			producer.produceMessage(message, topic, hostPort);
+			producer.produceMessage(message, topic );
 		}
-		
 	}
 	
-	
-	public void produceMessage( 
-			String message,
-			String topic,
-			String hostPort )
+	public MessageProducer( String hostPort )
 	{
-		 Properties props = new Properties();
+		Properties props = new Properties();
 		 props.put("bootstrap.servers", hostPort);
 		 props.put("acks", "all");
 		 props.put("retries", 0);
@@ -46,10 +42,16 @@ public class MessageProducer
 		 props.put("key.serializer", StringSerializer.class.getName());
 		 props.put("value.serializer", StringSerializer.class.getName());
 
-		 KafkaProducer<String, String> producer = new KafkaProducer<>(props);
-		 for(int i = 0; i < 100; i++)
-		     producer.send(new ProducerRecord<String, String>("my-topic", Integer.toString(i), Integer.toString(i)));
-
-		 producer.close();
+		 producer = new KafkaProducer<>(props);
 	}
+	
+	public void produceMessage( 
+			String message,
+			String topic )
+	{
+		 producer.send(new ProducerRecord<String, String>( topic, message ) );
+		     
+		 System.out.println( "sent message: " + message );
+	}
+	
 }
