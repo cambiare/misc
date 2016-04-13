@@ -8,6 +8,11 @@ public class MessageProducer
 {
 	public static void main( String args[] )
 	{
+		if( args.length != 4 )
+		{
+			System.out.println( "USAGE: MessageProducer hostPort topic numMessages message" );
+		}
+		
 		String 	hostPort	= args[0];
 		String 	topic		= args[1];	
 		int		nmsg		= Integer.parseInt( args[2] );
