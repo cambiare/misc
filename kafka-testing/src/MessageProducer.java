@@ -11,6 +11,7 @@ public class MessageProducer
 		if( args.length != 4 )
 		{
 			System.out.println( "USAGE: MessageProducer hostPort topic numMessages message" );
+			return;
 		}
 		
 		String 	hostPort	= args[0];

@@ -18,6 +18,7 @@ public class MessageConsumer
 		if( args.length != 3 )
 		{
 			System.out.println( "USAGE: MessageConsumer topic groupId hostPort" );
+			return;
 		}
 		
 		String	topic		= args[0];
