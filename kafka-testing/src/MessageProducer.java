@@ -1,5 +1,6 @@
 import java.util.Properties;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -48,6 +49,9 @@ public class MessageProducer
 
 		 System.out.println( "connecting with: " + hostPort );
 		 producer = new KafkaProducer<>(props);
+		 
+		 producer.flush();
+		 producer.close(Long.MAX_VALUE, TimeUnit.DAYS);
 		 System.out.println( "done");
 	}
 	
