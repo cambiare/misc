@@ -79,7 +79,7 @@ public class SingleConnectionConsumer
 				
 				while( true )
 				{
-					ConsumerRecords<String, String> records = consumer.poll( 1000 );
+					ConsumerRecords<String, String> records = consumer.poll(1);
 					for( ConsumerRecord<String, String> record : records )
 					{
 						System.out.println( "" + threadid + ": " + 
