@@ -33,12 +33,11 @@ public class MessageProducer
 		
 		producer.close();
 		
-		System.exit(0);
-		
 	}
 	
 	public void close( )
 	{
+		System.out.println( "closing connection");
 		producer.flush();
 		producer.close(Long.MAX_VALUE, TimeUnit.DAYS);
 	}
