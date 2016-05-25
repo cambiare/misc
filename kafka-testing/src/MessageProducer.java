@@ -1,7 +1,9 @@
 import java.util.Properties;
+import java.util.concurrent.Future;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 public class MessageProducer 
@@ -53,7 +55,16 @@ public class MessageProducer
 			String message,
 			String topic )
 	{
-		 producer.send(new ProducerRecord<String, String>( topic, message ) );
+		 Future<RecordMetadata> result = producer.send(new ProducerRecord<String, String>( topic, message ) );
+		 
+		 while( !result.isDone() )
+		 {
+			try {
+				Thread.sleep( 100 );
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		 }
 
 		 System.out.println( "sent message: " + message );
 	}
