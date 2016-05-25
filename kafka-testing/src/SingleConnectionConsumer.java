@@ -55,6 +55,8 @@ public class SingleConnectionConsumer
 			this.topics = topics;
 			
 			threadid = nextThreadId.addAndGet(1);
+			
+			System.out.println("starting listener with threadid: " + threadid );
 		}
 		
 		@Override
