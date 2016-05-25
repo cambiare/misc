@@ -65,7 +65,7 @@ public class SingleConnectionConsumer
 			KafkaConsumer<String, String>	consumer = null;
 			
 			Properties props = new Properties();
-			props.put( "zookeeper.connect", hostPort);
+			props.put( "bootstrap.servers", hostPort);
 			props.put( "group.id", groupId );
 			props.put( "key.deserializer", StringDeserializer.class.getName());
 			props.put( "value.deserializer", StringDeserializer.class.getName());
