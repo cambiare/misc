@@ -80,7 +80,7 @@ public class SingleConnectionConsumer
 				while( true )
 				{
 					System.out.println("waiting: " + threadid );
-					ConsumerRecords<String, String> records = consumer.poll(1);
+					ConsumerRecords<String, String> records = consumer.poll(Long.MAX_VALUE);
 					System.out.println("getting messages: " + records.count() );
 					for( ConsumerRecord<String, String> record : records )
 					{
