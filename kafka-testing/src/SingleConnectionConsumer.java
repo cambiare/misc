@@ -37,7 +37,7 @@ public class SingleConnectionConsumer
 	
 	public void startListening( String topicName, String consumerGroup )
 	{
-		new KafkaMessageListener( topicName, consumerGroup, hostPort ).start();
+		new KafkaMessageListener( hostPort, consumerGroup, topicName ).start();
 	}
 	
 	class KafkaMessageListener extends Thread
