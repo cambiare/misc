@@ -17,12 +17,15 @@ public class SingleConnectionConsumer
 	public static void main( String args[] )
 	{
 		String hostPort = args[0];
+		String topic	= args[1];
+		int nthreads = Integer.parseInt( args[2] );
 		
 		SingleConnectionConsumer consumer = new SingleConnectionConsumer( hostPort );
 		
-		consumer.startListening( "topicTest1", "consumerGroup1" );
-		consumer.startListening( "topicTest1", "consumerGroup1" );
-		consumer.startListening( "topicTest1", "consumerGroup1" );
+		for( int i=0; i < nthreads; i++ )
+		{
+			consumer.startListening( topic, "consumerGroup1" );
+		}
 	}
 	
 	public SingleConnectionConsumer( String hostPort )
