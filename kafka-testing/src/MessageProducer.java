@@ -35,7 +35,7 @@ public class MessageProducer
 	public MessageProducer( String hostPort )
 	{
 		Properties props = new Properties();
-		 props.put("bootstrap.servers", hostPort);
+		 props.put("zookeeper.connect", hostPort);
 		 props.put("acks", "all");
 		 props.put("retries", 0);
 		 props.put("batch.size", 16384);
