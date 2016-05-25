@@ -31,8 +31,16 @@ public class MessageProducer
 			producer.produceMessage(message + " -- #" + i, topic );
 		}
 		
+		producer.close();
+		
 		System.exit(0);
 		
+	}
+	
+	public void close( )
+	{
+		producer.flush();
+		producer.close(Long.MAX_VALUE, TimeUnit.DAYS);
 	}
 	
 	public MessageProducer( String hostPort )
@@ -49,9 +57,7 @@ public class MessageProducer
 
 		 System.out.println( "connecting with: " + hostPort );
 		 producer = new KafkaProducer<>(props);
-		 
-		 producer.flush();
-		 producer.close(Long.MAX_VALUE, TimeUnit.DAYS);
+
 		 System.out.println( "done");
 	}
 	
