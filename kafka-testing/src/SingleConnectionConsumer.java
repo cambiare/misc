@@ -20,6 +20,8 @@ public class SingleConnectionConsumer
 		String topic	= args[1];
 		int nthreads = Integer.parseInt( args[2] );
 		
+		System.out.println( args );
+		
 		SingleConnectionConsumer consumer = new SingleConnectionConsumer( hostPort );
 		
 		for( int i=0; i < nthreads; i++ )
