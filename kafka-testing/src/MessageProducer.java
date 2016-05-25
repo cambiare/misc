@@ -39,7 +39,7 @@ public class MessageProducer
 		Properties props = new Properties();
 		 props.put("bootstrap.servers", hostPort);
 		 props.put("acks", "all");
-		 props.put("retries", 0);
+		 //props.put("retries", 0);
 		 props.put("batch.size", 16384);
 		 props.put("linger.ms", 0);
 		 props.put("buffer.memory", 33554432);
